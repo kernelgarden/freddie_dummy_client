@@ -2,9 +2,9 @@ defmodule FreddieClient.Echo do
 
   alias FreddieClient.Scheme
 
-  def send_echo(pid, msg) do
+  def send_echo(socket, msg) do
     echo = Scheme.Echo.new(msg: msg)
     {:ok, packet} = Freddie.Scheme.Common.new_message(1, Scheme.Echo.encode(echo))
-    FreddieClient.send(pid, packet)
+    FreddieClient.Transport.send(socket, packet)
   end
 end

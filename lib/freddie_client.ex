@@ -1,7 +1,7 @@
 defmodule FreddieClient do
   use GenServer
 
-  defstruct socket: nil, total_recv: 0, is_active: false, collector: nil
+  defstruct socket: nil, total_recv: 0, is_active: false, collector: nil, msg: []
 
   def start_link(opts) do
     GenServer.start_link(__MODULE__, opts)
@@ -13,22 +13,35 @@ defmodule FreddieClient do
 
   @impl true
   def init(opts) do
-    IO.puts("Start FreddieClient...")
+    #IO.puts("Start FreddieClient...")
     collector = Keyword.get(opts, :collector)
     time = Keyword.get(opts, :time)
     opts = [:binary, active: true]
     {:ok, socket} = :gen_tcp.connect('localhost', 5050, opts)
-    FreddieClient.Echo.send_echo(self(), "Hello, world!")
+
+    msg = ["FreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_test"]
+
+    FreddieClient.Echo.send_echo(socket, msg)
 
     Process.send_after(self(), :time_over, time)
 
-    {:ok, %FreddieClient{socket: socket, is_active: true, collector: collector}}
+    {:ok, %FreddieClient{socket: socket, is_active: true, collector: collector, msg: msg}}
   end
 
   @impl true
   def handle_cast({:command, data}, state) do
-    msg = Freddie.Utils.pack_message(data)
-    :ok = :gen_tcp.send(state.socket, msg)
+    case state.is_active do
+      true ->
+        msg = Freddie.Utils.pack_message(data)
+        case :gen_tcp.send(state.socket, msg) do
+          {:error, :closed} ->
+            {:stop, :normal, state}
+          _ ->
+            FreddieClient.Echo.send_echo(self(), state.msg)
+        end
+      false ->
+        {:stop, :normal, state}
+    end
     {:noreply, state}
   end
 
@@ -37,20 +50,36 @@ defmodule FreddieClient do
     # We can finally reply to the right client.
     #IO.puts("reply from server: #{inspect msg}")
     new_state = %{state | total_recv: total_recv + byte_size(msg)}
-    FreddieClient.Echo.send_echo(self(), "Hello, world!")
+    FreddieClient.Echo.send_echo(socket, state.msg)
 
     {:noreply, new_state}
   end
 
   @impl true
   def handle_info(:time_over, state) do
-    IO.puts("time over! #{state.total_recv}")
-    GenServer.cast(state.collector, {:get_result, state.total_recv})
+    #IO.puts("time over! #{state.total_recv}")
+    #GenServer.cast(state.collector, {:get_result, state.total_recv})
+    {:stop, :normal, %FreddieClient{state | is_active: false}}
+  end
+
+  @impl true
+  def handle_info({:tcp_closed, _socket, _reason}, state) do
+    {:noreply, state}
+  end
+
+  @impl true
+  def handle_info({:tcp_error, _socket, _reason}, state) do
     {:stop, :normal, state}
   end
 
   @impl true
-  def handle_info({:tcp_closed, _socket}, state) do
+  def handle_info({:error, :closed}, state) do
     {:noreply, state}
+  end
+
+  @impl true
+  def terminate(_reason, state) do
+    GenServer.cast(state.collector, {:get_result, state.total_recv})
+    :ok
   end
 end

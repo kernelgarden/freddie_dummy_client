@@ -25,7 +25,7 @@ defmodule FreddieClient.PerfCollector do
 
   @impl true
   def handle_cast({:get_result, received}, state) do
-    IO.puts("Received!!! #{received}")
+    #IO.puts("Received!!! #{received}")
 
     new_state = %FreddieClient.PerfCollector{state | total_received_byte: state.total_received_byte + received, completed_num: state.completed_num + 1}
 
