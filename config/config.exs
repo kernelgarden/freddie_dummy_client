@@ -30,5 +30,5 @@ use Mix.Config
 #     import_config "#{Mix.env}.exs"
 
 config :freddie_client,
-  session_num: 1000,
+  session_num: 100,
   time: 10

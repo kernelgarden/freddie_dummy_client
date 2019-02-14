@@ -19,7 +19,8 @@ defmodule FreddieClient do
     opts = [:binary, active: true]
     {:ok, socket} = :gen_tcp.connect('localhost', 5050, opts)
 
-    msg = ["FreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_test"]
+    #msg = ["FreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_test"]
+    msg = "Hello, world"
 
     FreddieClient.Echo.send_echo(socket, msg)
 

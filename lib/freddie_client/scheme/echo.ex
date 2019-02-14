@@ -1,11 +1,4 @@
 defmodule FreddieClient.Scheme do
-  use Protobuf, """
-  syntax = "proto3";
-  package Common;
-
-  message Echo {
-      string msg = 1;
-  }
-  """
+  use Protobuf, from: Path.wildcard(Path.expand("./definitions/**/*.proto", __DIR__))
 
 end
