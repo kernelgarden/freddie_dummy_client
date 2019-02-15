@@ -66,7 +66,7 @@ defmodule FreddieClient do
   end
 
   @impl true
-  def handle_info({:tcp_closed, _socket, _reason}, state) do
+  def handle_info({:tcp_closed, _socket}, state) do
     {:noreply, state}
   end
 
