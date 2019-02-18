@@ -31,4 +31,4 @@ use Mix.Config
 
 config :freddie_client,
   session_num: 100,
-  time: 10
+  time: 2
