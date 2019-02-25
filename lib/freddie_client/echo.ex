@@ -8,8 +8,8 @@ defmodule FreddieClient.Echo do
   end
 
   def make_msg(msg) do
-    echo = Scheme.Echo.new(msg: msg)
-    packet = Freddie.Scheme.Common.new_message(0, echo)
+    echo = Scheme.CS_Echo.new(msg: msg)
+    packet = Freddie.Scheme.Common.new_message_dummy(1, echo)
     packet
   end
 end
