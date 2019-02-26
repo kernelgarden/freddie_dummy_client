@@ -3,7 +3,7 @@ defmodule FreddieClient.EncryptTest do
 
   alias __MODULE__
 
-  defstruct socket: nil, is_active: false, recv_queue: <<>>
+  defstruct socket: nil, is_active: false, recv_queue: <<>>, aes_key: <<>>
 
   def start_link(opts) do
     GenServer.start_link(__MODULE__, opts)
@@ -25,10 +25,16 @@ defmodule FreddieClient.EncryptTest do
 
   @impl true
   def handle_info({:tcp, socket, msg}, %{socket: socket} = state) do
-    <<header::big-16, msg::binary>> = msg
-    FreddieClient.Message.unpack_msg(socket, msg, 0)
+    <<_header::big-16, msg::binary>> = msg
+    new_state =
+      case FreddieClient.Message.unpack_msg(socket, msg, state.aes_key) do
+        {:set_aes, aes_key} ->
+          %EncryptTest{state | aes_key: aes_key}
+        _ ->
+          state
+      end
 
-    {:noreply, state}
+    {:noreply, new_state}
   end
 
   @impl true

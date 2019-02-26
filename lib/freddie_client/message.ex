@@ -32,6 +32,7 @@ defmodule FreddieClient.Message do
         connection_info_reply = Scheme.ConnectionInfoReply.new(client_pub_key: client_public_key)
 
         FreddieClient.Message.send_message(socket, -2, connection_info_reply)
+        {:set_aes, calculated_secret_key}
 
       # SC_EncryptPong
       4 ->
