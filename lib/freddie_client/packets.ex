@@ -8,6 +8,8 @@ defmodule FreddieClient.Packets do
     value FreddieClient.Scheme.SC_Echo, 2
     value FreddieClient.Scheme.CS_EncryptPing, 3
     value FreddieClient.Scheme.SC_EncryptPong, 4
+    value FreddieClient.Scheme.CS_Login, 5
+    value FreddieClient.Scheme.SC_Login, 6
   end
 
 end
