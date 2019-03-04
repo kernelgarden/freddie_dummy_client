@@ -11,6 +11,10 @@ defmodule FreddieClient do
     GenServer.cast(pid, {:command, data})
   end
 
+  def start_interactive_client do
+    FreddieClient.InteractiveClient.start_link([])
+  end
+
   @impl true
   def init(opts) do
     #IO.puts("Start FreddieClient...")
@@ -20,11 +24,11 @@ defmodule FreddieClient do
     {:ok, socket} = :gen_tcp.connect('localhost', 5050, opts)
 
     #msg = ["FreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_test"]
-    msg = ["FreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_test"]
-    #msg = "Hello, World!"
+    #msg = ["FreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_test"]
+    msg = ["FreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_testFreddieClient.PerfTest.perf_test"]
 
-    #FreddieClient.Echo.send_echo(socket, msg)
-    FreddieClient.send(self(), FreddieClient.Echo.make_msg(msg))
+    packet = FreddieClient.Echo.make_msg(msg)
+    FreddieClient.send(self(), packet)
 
     Process.send_after(self(), :time_over, time)
 
@@ -50,10 +54,7 @@ defmodule FreddieClient do
   @impl true
   def handle_info({:tcp, socket, msg}, %{socket: socket, total_recv: total_recv} = state) do
     # We can finally reply to the right client.
-    #IO.puts("reply from server: #{inspect msg}")
     new_state = %{state | total_recv: total_recv + byte_size(msg)}
-    #FreddieClient.Echo.send_echo(socket, state.msg)
-    #FreddieClient.send(self(), state.msg)
 
     {:noreply, new_state}
   end
@@ -61,7 +62,6 @@ defmodule FreddieClient do
   @impl true
   def handle_info(:time_over, state) do
     IO.puts("time over! #{state.total_recv}")
-    #GenServer.cast(state.collector, {:get_result, state.total_recv})
     {:stop, :normal, %FreddieClient{state | is_active: false}}
   end
 
