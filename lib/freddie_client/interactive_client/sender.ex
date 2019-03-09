@@ -1,13 +1,13 @@
 defmodule FreddieClient.InteractiveClient.Sender do
-
   def send(session, payload, opts \\ []) do
     case packet_2_command(payload) do
       {:ok, command} ->
         req = FreddieClient.Message.pack_msg(command, payload, session.aes_key, opts)
         FreddieClient.Transport.send(session.socket, req)
-        IO.puts("Send to Server command: #{command}, payload: #{inspect payload}")
+        IO.puts("Send to Server command: #{command}, payload: #{inspect(payload)}")
+
       other ->
-        IO.puts("#{inspect other}")
+        IO.puts("#{inspect(other)}")
     end
   end
 
@@ -19,6 +19,7 @@ defmodule FreddieClient.InteractiveClient.Sender do
   defp packet_2_command(packet) do
     packet_type = packet.__struct__
     key = Module.concat(FreddieClient.Packets.Types, packet_type)
+
     result =
       try do
         packet_num = FreddieClient.Packets.Types.value(key)
@@ -29,5 +30,4 @@ defmodule FreddieClient.InteractiveClient.Sender do
 
     result
   end
-
 end

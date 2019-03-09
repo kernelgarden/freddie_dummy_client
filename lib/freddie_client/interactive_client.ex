@@ -48,7 +48,9 @@ defmodule FreddieClient.InteractiveClient do
 
   @impl true
   def handle_info({:tcp, _socket, data}, state) do
-    new_session = Session.update(state.session, :buffer, <<state.session.buffer::binary, data::binary>>)
+    new_session =
+      Session.update(state.session, :buffer, <<state.session.buffer::binary, data::binary>>)
+
     new_session = FreddieClient.InteractiveClient.PacketParser.on_read(new_session)
     {:noreply, update_session(state, new_session)}
   end
@@ -79,5 +81,4 @@ defmodule FreddieClient.InteractiveClient do
   def terminate(_reason, _state) do
     :ok
   end
-
 end

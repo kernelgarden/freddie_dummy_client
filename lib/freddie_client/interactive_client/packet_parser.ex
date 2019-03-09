@@ -1,6 +1,6 @@
 defmodule FreddieClient.InteractiveClient.PacketParser do
-   # header size is unsigned integer of 2 byte
-  @header_size 2 * 8
+  # header size is unsigned integer of 4 byte
+  @header_size 4 * 8
 
   alias FreddieClient.InteractiveClient.Session
   alias FreddieClient.InteractiveClient.PacketHandler
@@ -42,5 +42,4 @@ defmodule FreddieClient.InteractiveClient.PacketParser do
   defp parse(buffer, _session) do
     {:not_enough_data, buffer}
   end
-
 end

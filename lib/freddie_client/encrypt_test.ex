@@ -25,11 +25,13 @@ defmodule FreddieClient.EncryptTest do
 
   @impl true
   def handle_info({:tcp, socket, msg}, %{socket: socket} = state) do
-    <<_header::big-16, msg::binary>> = msg
+    <<_header::big-32, msg::binary>> = msg
+
     new_state =
       case FreddieClient.Message.unpack_msg(socket, msg, state.aes_key) do
         {:set_aes, aes_key} ->
           %EncryptTest{state | aes_key: aes_key}
+
         _ ->
           state
       end
@@ -63,5 +65,4 @@ defmodule FreddieClient.EncryptTest do
   def terminate(_reason, state) do
     :ok
   end
-
 end

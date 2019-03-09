@@ -1,5 +1,4 @@
 defmodule FreddieClient.InteractiveClient.Session do
-
   alias __MODULE__
 
   defstruct socket: nil, is_active: false, buffer: <<>>, aes_key: <<>>
@@ -19,5 +18,4 @@ defmodule FreddieClient.InteractiveClient.Session do
 
     new_session
   end
-
 end

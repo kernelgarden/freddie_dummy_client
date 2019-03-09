@@ -1,5 +1,4 @@
 defmodule FreddieClient.InteractiveClient.PacketHandler do
-
   alias FreddieClient.InteractiveClient.PacketHandler
 
   alias FreddieClient.Packets.Types.FreddieClient.Scheme
@@ -25,7 +24,8 @@ defmodule FreddieClient.InteractiveClient.PacketHandler do
       Scheme.SC_Login ->
         nil
 
-      _-> :noop
+      _ ->
+        :noop
     end
   end
 end

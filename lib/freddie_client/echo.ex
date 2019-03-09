@@ -1,5 +1,4 @@
 defmodule FreddieClient.Echo do
-
   alias FreddieClient.Scheme
 
   def send_echo(socket, msg) do
