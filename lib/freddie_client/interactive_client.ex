@@ -6,6 +6,10 @@ defmodule FreddieClient.InteractiveClient do
 
   defstruct session: nil
 
+  def connect() do
+    start_link(nil)
+  end
+
   def start_link(opts) do
     GenServer.start_link(__MODULE__, opts, name: __MODULE__)
   end

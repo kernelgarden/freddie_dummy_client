@@ -21,8 +21,11 @@ defmodule FreddieClient.InteractiveClient.PacketHandler do
       Scheme.SC_EncryptPong ->
         PacketHandler.EncryptPong.handle(packet, session)
 
-      Scheme.SC_Login ->
-        nil
+      Scheme.SC_Signin ->
+        PacketHandler.Signin.handle(packet, session)
+
+      Scheme.SC_Signup ->
+        IO.puts("Received SC_Signup #{inspect(packet)}")
 
       _ ->
         :noop
