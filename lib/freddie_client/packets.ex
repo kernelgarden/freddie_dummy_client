@@ -17,5 +17,8 @@ defmodule FreddieClient.Packets do
     # sign in
     value(FreddieClient.Scheme.CS_Signin, 9)
     value(FreddieClient.Scheme.SC_Signin, 10)
+
+    value(FreddieClient.Scheme.CS_Join, 12)
+    value(FreddieClient.Scheme.SC_Join, 13)
   end
 end
